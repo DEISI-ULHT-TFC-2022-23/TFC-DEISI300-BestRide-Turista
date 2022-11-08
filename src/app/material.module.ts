@@ -23,6 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   exports: [
+    MatDatepickerModule,
     MatTableModule,
     MatStepperModule,
     MatButtonModule,

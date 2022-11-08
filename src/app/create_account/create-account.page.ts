@@ -11,8 +11,8 @@ import { CountryCode } from './countryCode';
   styleUrls: ['./create-account.page.scss'],
 })
 export class CriaContaPage implements OnInit {
-  public hide = false;
-  public hide2 = false;
+  public hide = true;
+  public hide2 = true;
   public passwordIconToggle: String = 'eye';
   public passwordIconToggle2: String = 'eye';
   public ionicForm: FormGroup;
@@ -48,7 +48,7 @@ export class CriaContaPage implements OnInit {
       gender: 'Female',
     },
     {
-      gender: 'Prefer not to say',
+      gender: 'Rather not say',
     },
   ];
 
