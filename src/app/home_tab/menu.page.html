@@ -26,7 +26,7 @@
         debounce="500"
         (ionChange)="ionChange($event)"
         color="light"
-        [placeholder]="'Search Tour' | customTranslate | async"
+        [placeholder]="'Search for a Tour' | customTranslate | async"
       >
       </ion-searchbar>
 
@@ -36,7 +36,7 @@
           <mat-form-field appearance="outline">
             <mat-label>{{'Choose a city' | customTranslate | async}}</mat-label>
             <mat-select (selectionChange)="onCityChange($event)">
-              <mat-option value="Near"
+              <mat-option value="Near Me"
                 >{{'Near me' | customTranslate | async}}</mat-option
               >
               <mat-option value="lisboa"

@@ -24,7 +24,7 @@ export class OptionsMapPage implements OnInit {
 
   cities: City[] = [
     { value: 'Near', viewValue: 'Near Me' },
-    { value: 'lisboa', viewValue: 'Lisboa' },
+    { value: 'lisboa', viewValue: 'Lisbon' },
     { value: 'leiria', viewValue: 'Leiria' },
   ];
 

@@ -70,7 +70,7 @@ export class MenuPage implements OnInit {
       // Using Skeleton Text
       setTimeout(() => {
         this.place = data['data'].local;
-        if (this.place == 'Near') {
+        if (this.place == 'Near Me') {
           this.map_service.get_roads_near_me().subscribe((data) => {
             for (let pos in data) {
               this.trips.push(
@@ -116,7 +116,7 @@ export class MenuPage implements OnInit {
   doRefresh(event) {
     this.trips = [];
     setTimeout(() => {
-      if (this.place == 'Near') {
+      if (this.place == 'Near Me') {
         this.map_service.get_roads_near_me().subscribe((data) => {
           for (let pos in data) {
             this.trips.push(
@@ -209,7 +209,7 @@ export class MenuPage implements OnInit {
     console.log(event.source._value);
     this.trips = [];
     setTimeout(() => {
-      if (event.source._value == 'Near') {
+      if (event.source._value == 'Near Me') {
         this.map_service.get_roads_near_me().subscribe((data) => {
           for (let pos in data) {
             this.trips.push(

@@ -39,7 +39,7 @@
                   </mat-form-field>
 
                   <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
+                    <mat-label>{{'Password' | customTranslate | async}}</mat-label>
                     <input
                       matInput
                       formControlName="password"
@@ -76,12 +76,12 @@
         <div class="buttons_social">
           <button mat-flat-button>
             <img src="../../assets/icon/google_logo.svg" id="google_logo" />
-            Sign up with Google
+            {{'Login with Google' | customTranslate | async}}
           </button>
           <br />
           <button mat-flat-button>
             <img src="../../assets/icon/facebook_logo.svg" id="google_logo" />
-            Sign up with Facebook
+            {{'Login with Facebook' | customTranslate | async}}
           </button>
         </div>
         <!-- Texts -->
@@ -94,7 +94,7 @@
           </p>
           <p>
             <u (click)="recover_account()"
-              >{{'Forgout your password?' | customTranslate | async}}</u
+              >{{'Forgot your password?' | customTranslate | async}}</u
             >
           </p>
         </div>

@@ -162,7 +162,7 @@
 
                 <mat-form-field appearance="outline">
                   <mat-label
-                    >{{'Street Address line 1' | customTranslate |
+                    >{{'Street Address' | customTranslate |
                     async}}</mat-label
                   >
                   <input
@@ -170,7 +170,7 @@
                     formControlName="address"
                     type="text"
                     autocomplete="off"
-                    placeholder="{{'Rua Augusta' | customTranslate | async}}"
+                    placeholder="{{'Rua Augusta 14' | customTranslate | async}}"
                   />
 
                   <mat-error
@@ -252,11 +252,14 @@
                 </mat-form-field>
 
                 <div *ngIf="errorControl.pass.errors?.pattern">
-                  <mat-hint>Minimal 8 characters</mat-hint><br />
-                  <mat-hint>1 uppercase letter</mat-hint><br />
-                  <mat-hint>1 number</mat-hint><br />
-                  <mat-hint>1 special character</mat-hint><br />
-                  <mat-hint>Length:{{passw.value.length}}</mat-hint>
+
+                  <ul>
+                    <li><mat-hint>{{'Minimal 8 characters' | customTranslate | async}}</mat-hint></li>
+                    <li><mat-hint>{{'1 uppercase letter' | customTranslate | async}}</mat-hint></li>
+                    <li><mat-hint>{{'1 number' | customTranslate | async}}</mat-hint></li>
+                    <li><mat-hint>{{'1 special character' | customTranslate | async}}</mat-hint></li>
+                    <li><mat-hint>{{'Length: ' | customTranslate | async}}{{passw.value.length}}</mat-hint></li>
+                  </ul>
                 </div>
 
                 <mat-form-field appearance="outline">
@@ -304,9 +307,8 @@
                 <ion-row>
                   <ion-col>
                     <mat-checkbox formControlName="check"
-                      >{{ 'I agree with the terms and conditions'
-                      }}</mat-checkbox
-                    >
+                      >{{'I agree with the terms and conditions' | customTranslate | async}}
+                    </mat-checkbox>
                   </ion-col>
                 </ion-row>
 

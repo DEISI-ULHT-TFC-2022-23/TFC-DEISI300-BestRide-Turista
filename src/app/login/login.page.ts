@@ -147,7 +147,6 @@ export class LoginPage implements OnInit {
     ],
     password: [
       { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'password got to have 8 characters' },
     ],
   };
 }

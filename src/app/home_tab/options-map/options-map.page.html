@@ -27,12 +27,11 @@
                   <ion-col>
                     <ion-item>
                       <ion-label>
-                        {{'Choose the city' | customTranslate |
-                        async}}</ion-label
-                      >
+                        {{'Choose the city' | customTranslate | async}}
+                      </ion-label>
                       <ion-select
                         formControlName="location"
-                        placeholder="Choose Location"
+                        placeholder="{{'Choose location' | customTranslate | async}}"
                         (ngModelChange)="onChange($event)"
                       >
                         <ion-select-option
