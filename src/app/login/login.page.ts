@@ -9,7 +9,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 //api
 import { LoginApiService } from './login-api.service';
-import { CriaContaApiService } from '../create_account/create-account-api.service';
+import { CriaContaApiService } from '../create-account/create-account-api.service';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AppComponent } from '../app.component';
 import { InAppBrowserEvent } from '@ionic-native/in-app-browser';
@@ -106,8 +106,8 @@ export class LoginPage implements OnInit {
     alert.present();
   }
 
-  public create_account(): void {
-    this.router.navigate(['/create_account']);
+  public createAccount(): void {
+    this.router.navigate(['/create-account']);
   }
 
   public recover_account(): void {

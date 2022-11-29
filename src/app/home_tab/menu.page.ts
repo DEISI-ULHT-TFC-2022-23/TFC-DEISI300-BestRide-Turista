@@ -55,7 +55,7 @@ export class MenuPage implements OnInit {
   ionViewWillEnter() {}
 
   ngOnInit() {
-    this.presentModalMapDefinitions();
+    //this.presentModalMapDefinitions();
   }
 
   ngAfterViewInit() {}

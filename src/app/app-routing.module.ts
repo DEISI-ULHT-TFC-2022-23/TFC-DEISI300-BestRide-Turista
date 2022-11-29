@@ -27,9 +27,9 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'create_account',
+    path: 'create-account',
     loadChildren: () =>
-      import('./create_account/create-account.module').then(
+      import('./create-account/create-account.module').then(
         (m) => m.CriaContaPageModule
       ),
   },
@@ -41,7 +41,7 @@ const routes: Routes = [
   {
     path: 'definitions_tab',
     loadChildren: () =>
-      import('./app_definitions/definitions.module').then(
+      import('./app-definitions/definitions.module').then(
         (m) => m.DefinicoesPageModule
       ),
   },

@@ -138,7 +138,7 @@ export class CriaContaPage implements OnInit {
       return false;
     } else {
       const indicative = this.ionicForm.get('phone_ind').value;
-      const create_account = {
+      const createAccount = {
         name: this.ionicForm.get('name').value,
         dob: this.ionicForm.get('dob').value,
         phone: indicative + this.ionicForm.get('phone').value,
@@ -150,9 +150,9 @@ export class CriaContaPage implements OnInit {
         pass: this.ionicForm.get('pass').value,
         passRepeat: this.ionicForm.get('passRepeat').value,
       };
-      console.log(create_account);
+      console.log(createAccount);
 
-      this.api.createAccount(create_account);
+      this.api.createAccount(createAccount);
     }
   }
 
