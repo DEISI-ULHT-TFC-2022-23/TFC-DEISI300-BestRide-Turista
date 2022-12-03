@@ -56,9 +56,31 @@ export class MenuPage implements OnInit {
 
   ngOnInit() {
     //this.presentModalMapDefinitions();
+    this.placesInit();
   }
 
   ngAfterViewInit() {}
+
+  placesInit() {
+    this.place = "Near Me";
+    this.map_service.get_roads_near_me().subscribe((data) => {
+      for (let pos in data) {
+        this.trips.push(
+          new RoadMap(
+            data[pos].id,
+            data[pos].title,
+            data[pos].duration,
+            data[pos].price,
+            data[pos].description,
+            data[pos].image,
+            data[pos].location['coordinates'][0],
+            data[pos].location['coordinates'][1]
+          )
+        );
+      }
+    });
+    this.searchedItem = this.trips;
+  }
 
   async presentModalMapDefinitions() {
     const modal = await this.modalController.create({

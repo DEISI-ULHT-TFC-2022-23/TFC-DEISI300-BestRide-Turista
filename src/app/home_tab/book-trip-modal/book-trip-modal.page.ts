@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PickerController } from '@ionic/angular';
 import {
   Geolocation,
   GeolocationOptions,
@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BookServiceService } from './book-service.service';
 import { PaymentPage } from 'src/app/payment/payment.page';
+import { PickerOptions } from '@ionic/core';
 declare var google: any;
 
 @Component({
@@ -34,13 +35,15 @@ export class BookTripModalPage implements OnInit {
   public vehicles: Observable<any>;
   public ionicForm: FormGroup;
   public progress: boolean = false;
+  private numberPeople: number;
 
   constructor(
     private modalCtr: ModalController,
     private map_service: MapServiceService,
     private booking_service: BookServiceService,
     private http: HttpClient,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private pickerCtrl: PickerController
   ) {}
 
   ngOnInit() {
@@ -135,4 +138,58 @@ export class BookTripModalPage implements OnInit {
   get errorControl() {
     return this.ionicForm.controls;
   }
+
+  async openPicker() {
+    let opts: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Confirm',
+        }
+
+      ],
+      columns: [
+        {
+          name: 'number',
+          options: [
+            {text: '1',value: 1},
+            {text: '2',value: 2},
+            {text: '3',value: 3},
+            {text: '4',value: 4},
+            {text: '5',value: 5},
+            {text: '6',value: 6},
+            {text: '7',value: 7},
+            {text: '8',value: 8},
+            {text: '9',value: 9},
+            {text: '10',value: 10},
+            {text: '11',value: 11},
+            {text: '12',value: 12},
+            {text: '13',value: 13},
+            {text: '14',value: 14},
+            {text: '15',value: 15},
+            {text: '16',value: 16},
+            {text: '17',value: 17},
+            {text: '18',value: 18},
+            {text: '19',value: 19},
+            {text: '20',value: 20},
+          ],
+        },
+      ]
+    };
+    let picker = await this.pickerCtrl.create(opts);
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('number');
+      console.log(col);
+      this.numberPeople = col.options[col.selectedIndex].value;
+    });
+  }
+
+  get pickerValue(){
+    return this.numberPeople;
+  }
+
 }

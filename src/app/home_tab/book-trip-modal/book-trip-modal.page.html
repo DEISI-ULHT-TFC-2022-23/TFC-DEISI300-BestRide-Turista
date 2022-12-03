@@ -50,12 +50,12 @@
             {{'This field is required' | customTranslate | async}}
           </mat-error>
           <br />
-          <ion-item>
+          <ion-item (click) = "openPicker()">
             <ion-label
               >{{ "How Many People ?" | customTranslate | async}}</ion-label
             >
-
-            <ion-select
+            <ion-input [value]="pickerValue" ></ion-input>
+            <!-- <ion-select
               value="2"
               okText="OK"
               cancelText="Dismiss"
@@ -67,7 +67,7 @@
               <ion-select-option value="4">4</ion-select-option>
               <ion-select-option value="5">5</ion-select-option>
               <ion-select-option value="6">6</ion-select-option>
-            </ion-select>
+            </ion-select> -->
           </ion-item>
           <mat-error
             class="error-message"
