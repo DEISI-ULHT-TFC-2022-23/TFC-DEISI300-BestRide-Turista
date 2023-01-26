@@ -37,7 +37,7 @@ export class MenuPage implements OnInit {
   public contentLoad = false;
   public trips: Array<RoadMap> = [];
   public place: string;
-  public searchedItem: any;
+  public searchedItem: RoadMap[];
 
   constructor(
     private geolocation: Geolocation,
@@ -57,6 +57,7 @@ export class MenuPage implements OnInit {
   ngOnInit() {
     //this.presentModalMapDefinitions();
     this.placesInit();
+    console.log(this.searchedItem);
   }
 
   ngAfterViewInit() {}

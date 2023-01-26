@@ -15,6 +15,7 @@ export class LoginApiService {
   private url_add_turist: String = '/userInfo/add_to_turist_role';
   private url_login: String = '/login/';
   private url_get_user_id: String = '/getUserid/';
+  private isLoggedin = false;
 
   constructor(
     private http: HttpClient,
@@ -54,6 +55,7 @@ export class LoginApiService {
               console.log(erro);
             }
           );
+        this.isLoggedin = true;
         this.router.navigate(['/home_tab']);
       },
       (error) => {
@@ -104,5 +106,9 @@ export class LoginApiService {
     });
 
     await alert.present();
+  }
+
+  public isAuthenticated(){
+    return this.isLoggedin;
   }
 }

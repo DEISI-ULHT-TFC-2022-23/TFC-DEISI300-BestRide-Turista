@@ -26,13 +26,13 @@
               <div *ngIf="tour_array.length == 0 && !loadingContent">
                 <ion-card>
                   <ion-card-header>
-                    <h1>No Reserves !!</h1>
+                    <h1>{{'No Reserves!!' | customTranslate | async}}</h1>
                   </ion-card-header>
                   <ion-card-content>
                     <ion-icon color="warning" name="alert-circle" slot="start">
                     </ion-icon>
                     <ion-text>
-                      You have no Paid Trips! Explore ...
+                      {{'You have no Paid Trips! Explore...' | customTranslate | async}}
                     </ion-text>
                   </ion-card-content>
                 </ion-card>

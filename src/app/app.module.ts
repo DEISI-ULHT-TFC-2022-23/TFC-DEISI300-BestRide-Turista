@@ -17,6 +17,7 @@ import { Stripe } from '@ionic-native/stripe/ngx';
 import { AlertPopup } from './shared/alert-pop';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CanActivateGuard } from './shared/CanActivateGuard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InAppBrowser,
     Stripe,
     NativeGeocoder,
+    CanActivateGuard,
     AlertPopup,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
