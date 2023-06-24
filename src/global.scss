@@ -66,8 +66,10 @@ ion-header {
     display: flex;
     flex-direction: column;
     text-align: center;
-    img {
-      align-self: center;
+    ion-img {
+      display: inline-block;
+      justify-content: center;
+      align-items: center;
       width: 150px;
     }
   }
@@ -81,6 +83,11 @@ ion-header {
     align-self: center;
     width: 1%;
   }
+}
+
+svg {
+  position: fixed;
+  bottom: 0;
 }
 
 @import "~leaflet/dist/leaflet.css";

@@ -32,15 +32,16 @@ export class CriaContaApiService {
       city: data_dict['city'],
       gender: data_dict['gender'],
       phone_number: data_dict['phone'],
-      adress: data_dict['address'],
+      address: data_dict['address'],
       postal_code: data_dict['postal'],
       password: data_dict['pass'],
+      image: '',
     };
-
+    console.log(postDataInfo)
     this.http.post(environment.apiUrl + this.url, postDataInfo).subscribe(
       (data) => {
         localStorage.setItem('email', data_dict['email']);
-        this.http
+        /* this.http
           .post(environment.apiUrl + this.url_create_user_db, {
             email: data_dict['email'],
             image: '',
@@ -50,7 +51,7 @@ export class CriaContaApiService {
             (error) => {
               console.log(error);
             }
-          );
+          ); */
 
         this.router.navigate(['/confirm-account']);
       },

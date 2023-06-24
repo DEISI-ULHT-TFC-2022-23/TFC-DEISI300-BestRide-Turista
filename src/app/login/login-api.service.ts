@@ -15,7 +15,7 @@ export class LoginApiService {
   private url_add_turist: String = '/userInfo/add_to_turist_role';
   private url_login: String = '/login/';
   private url_get_user_id: String = '/getUserid/';
-  private isLoggedin = false;
+  private isLoggedin = false; //TODO ALTERAR
 
   constructor(
     private http: HttpClient,
@@ -32,9 +32,10 @@ export class LoginApiService {
 
     this.http.post(environment.apiUrl + this.url_login, data).subscribe(
       (data) => {
+        console.log(data)
         localStorage.setItem(
           'token',
-          data['AuthenticationResult']['AccessToken']
+          data['token']
         );
 
         //Login made it !!

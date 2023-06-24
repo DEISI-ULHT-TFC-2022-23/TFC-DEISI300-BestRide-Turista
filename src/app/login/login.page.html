@@ -1,28 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <img src="assets/BestRideLogo.png" />
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <div class="body">
-    <svg height="100%" width="100%">
-      <circle cx="-30" cy="50" r="230" fill="#ffba00" />
-      <circle cx="360" cy="0" r="120" fill="#58a600" />
-      <circle cx="360" cy="600" r="300" fill="#00adff" />
-    </svg>
-    <div class="content">
-      <ion-grid>
-        <ion-card>
-          <ion-row>
-            <ion-col>
-              <form
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <h1>Login</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="col-img ion-text-center">
+        <ion-img src="assets/BestRideLogo2.png"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <form
+                id="login_form"
                 class="form"
                 [formGroup]="registrationForm"
                 (ngSubmit)="login()"
               >
                 <ion-list>
-                  <h1>Login</h1>
                   <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" type="email" />
@@ -65,27 +61,18 @@
                       >
                     </ng-container>
                   </div>
-                  <button mat-button id="btn_login" type="submit">Login</button>
                 </ion-list>
               </form>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-        <!-- Social Login Buttons-->
-        <div class="buttons_social">
-          <button mat-flat-button>
-            <img src="../../assets/icon/google_logo.svg" id="google_logo" />
-            {{'Login with Google' | customTranslate | async}}
-          </button>
-          <br />
-          <button mat-flat-button>
-            <img src="../../assets/icon/facebook_logo.svg" id="google_logo" />
-            {{'Login with Facebook' | customTranslate | async}}
-          </button>
-        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button mat-button id="btn_login">Login</button>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
         <!-- Texts -->
-        <div class="texts">
-          <p>
+        <div class="texts ion-text-center">
+          <p style="margin: 0">
             {{'Dont have an account? ' | customTranslate | async}}<u
               (click)="createAccount()"
               >{{'Sign up' | customTranslate | async}}</u
@@ -97,7 +84,21 @@
             >
           </p>
         </div>
-      </ion-grid>
-    </div>
-  </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="buttons_social ion-text-center">
+        <!-- Social Login Buttons-->
+        <button mat-flat-button id="btn_google">
+          <img src="../../assets/icon/google_logo.svg" id="social_logo" />
+          {{'Login with Google' | customTranslate | async}}
+        </button>
+        <br />
+        <button mat-flat-button id="btn_face">
+          <img src="../../assets/icon/facebook_logo.svg" id="social_logo" />
+          {{'Login with Facebook' | customTranslate | async}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

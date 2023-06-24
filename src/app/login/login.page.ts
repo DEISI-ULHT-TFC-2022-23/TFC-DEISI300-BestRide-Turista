@@ -14,6 +14,8 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { AppComponent } from '../app.component';
 import { InAppBrowserEvent } from '@ionic-native/in-app-browser';
 import { environment } from 'src/environments/environment';
+import { CustomTranslateService } from '../shared/services/custom-translate.service';
+
 
 @Component({
   selector: 'app-login',
@@ -64,19 +66,38 @@ export class LoginPage implements OnInit {
     private http: HttpClient,
     private alertCtrl: AlertController,
     private loginApi: LoginApiService,
-    private storage: NativeStorage,
+    private translate: CustomTranslateService,
     private comp: AppComponent,
-    private account_api: CriaContaApiService,
     private iab: InAppBrowser
   ) {
     comp.hide_tab = true;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const form = document.getElementById('login_form') as HTMLFormElement;
+    const submitButton = document.getElementById('btn_login') as HTMLButtonElement;
+    submitButton.addEventListener('click', (event) => {
+      event.preventDefault(); // Evita o comportamento padrão de envio do botão
+      this.login(); // Submissão manual do formulário
+    });
+  }
+
+
 
   public login(): void {
     if (!this.registrationForm.valid) {
-      this.showDialog('Error', 'Invalid Credentials', 'Try Again');
+      console.log("Entrou")
+      this.alertCtrl.create({
+        header: "Error",
+        message: "Invalid Credentials",
+        buttons: [
+          {
+            text: 'Try Again'
+          }
+        ]
+      }).then((alertEl) => {
+        alertEl.present();
+      });
       return;
     } else {
       let email = this.registrationForm.get('email').value;
@@ -96,15 +117,7 @@ export class LoginPage implements OnInit {
     return this.registrationForm.get('password');
   }
 
-  async showDialog(header, message, buttons) {
-    const alert = await this.alertCtrl.create({
-      header: '' + this.login_alert_text['header'],
-      cssClass: 'my-custom-class',
-      message: '' + this.login_alert_text['message'],
-      buttons: ['' + this.login_alert_text['buttons']],
-    });
-    alert.present();
-  }
+
 
   public createAccount(): void {
     this.router.navigate(['/create-account']);
@@ -112,32 +125,6 @@ export class LoginPage implements OnInit {
 
   public recover_account(): void {
     this.router.navigate(['/recover_account']);
-  }
-
-  public socialLogin(social: string): void {
-    const url =
-      'https://bestride.auth.us-east-2.amazoncognito.com/oauth2/authorize?' +
-      'response_type=code&' +
-      'identity_provider=' +
-      social +
-      '&' +
-      'redirect_uri=' +
-      environment.redirect_uri +
-      '&client_id=' +
-      environment.aws_client_id +
-      '&' +
-      'scope=email+openid+profile';
-
-    const browser = this.iab.create(url, '_blank');
-    if (browser.on('loadstart').subscribe)
-      browser.on('loadstart').subscribe((e: InAppBrowserEvent) => {
-        const url_code = e.url.split('?');
-        if (e.url === url_code[0] + '?' + url_code[1]) {
-          const code = url_code[1].split('=')[1].trim();
-          browser.close();
-          this.loginApi.social_sign_in(code);
-        }
-      });
   }
 
   public errorMessages = {

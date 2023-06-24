@@ -1,49 +1,53 @@
 <ion-header>
   <ion-toolbar>
-    <img src="assets/BestRideLogo.png" />
+    <ion-img src="assets/BestRideLogo.png"></ion-img>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="body">
-    <svg height="100%" width="100%">
-      <circle cx="0" cy="0" r="230" fill="#58a600" />
-      <circle cx="0" cy="calc(100%)" r="230" fill="#FFBA00" />
-      <circle cx="calc(100%)" cy="calc(50%)" r="230" fill="#FF3F00" />
-    </svg>
-
-    <div class="content">
-      <ion-card>
-        <h1>{{'App Definitions' | customTranslate | async}}</h1>
-        <br />
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label> {{'Language' | customTranslate | async}}</ion-label>
-                <ion-select
-                  [(ngModel)]="language"
-                  (ionChange)="changeLanguage()"
-                >
-                  <ion-select-option value="pt">Portuguese</ion-select-option>
-                  <ion-select-option value="en">English</ion-select-option>
-                  <ion-select-option value="es">Spanish</ion-select-option>
-                  <ion-select-option value="fr">French</ion-select-option>
-                  <ion-select-option value="ru">Russian</ion-select-option>
-                  <ion-select-option value="it">Italian</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-button color="warning" expand="block"
-                >{{'Terms and conditions' | customTranslate | async}}
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card>
-    </div>
-  </div>
+  <svg height="100%" width="100%">
+    <circle cx="0" cy="0" r="230" fill="#58a600" />
+    <circle cx="0" cy="calc(100%)" r="230" fill="#FFBA00" />
+    <circle cx="calc(100%)" cy="calc(50%)" r="230" fill="#FF3F00" />
+  </svg>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-card>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <h1>{{'App Definitions' | customTranslate | async}}</h1>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label> {{'Language' | customTranslate | async}}</ion-label>
+                  <ion-select
+                    [(ngModel)]="language"
+                    (ionChange)="changeLanguage()"
+                  >
+                    <ion-select-option value="pt">Portuguese</ion-select-option>
+                    <ion-select-option value="en">English</ion-select-option>
+                    <ion-select-option value="es">Spanish</ion-select-option>
+                    <ion-select-option value="fr">French</ion-select-option>
+                    <ion-select-option value="ru">Russian</ion-select-option>
+                    <ion-select-option value="it">Italian</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button color="warning" expand="block"
+                  >{{'Terms and conditions' | customTranslate | async}}
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

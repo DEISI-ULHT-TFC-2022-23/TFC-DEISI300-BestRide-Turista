@@ -13,12 +13,12 @@ import { CustomTranslateService } from '../shared/services/custom-translate.serv
 })
 export class ConfirmAccountPage implements OnInit {
   ionicForm: FormGroup;
-  registrationForm = this.formBuilder.group({
-    code: [
-      '',
-      Validators.compose([Validators.minLength(7), Validators.required]),
-    ],
-  });
+    registrationForm = this.formBuilder.group({
+      code: [
+        '',
+        Validators.compose([Validators.minLength(7), Validators.required]),
+      ],
+    });
   private url: String = '/verifyAccount/';
   private url_resend: String = '/resend_code/';
 
@@ -43,7 +43,7 @@ export class ConfirmAccountPage implements OnInit {
       email: localStorage.getItem('email'),
       code: '' + code,
     };
-
+    console.log(data)
     this.http.post(environment.apiUrl + this.url, data).subscribe(
       (data) => {
         this.router.navigate(['/login']);
