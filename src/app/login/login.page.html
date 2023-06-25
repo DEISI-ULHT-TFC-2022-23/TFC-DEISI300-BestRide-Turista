@@ -1,10 +1,10 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
-        <h1>Login</h1>
-      </ion-col>
-    </ion-row>
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2" class="col-img ion-text-center">
         <ion-img src="assets/BestRideLogo2.png"></ion-img>
@@ -51,16 +51,19 @@
                         >{{hide ? 'visibility_off' : 'visibility'}}</mat-icon
                       >
                     </div>
+                    <mat-error>
+                      <div *ngFor="let error of errorMessages.password">
+                        <ng-container
+                          *ngIf="password.hasError(error.type) && ( password.touched || password.dirty)"
+                        >
+                          <small class="error-message"
+                            >{{error.message | customTranslate | async}}</small
+                          >
+                        </ng-container>
+                      </div>
+                    </mat-error>
                   </mat-form-field>
-                  <div *ngFor="let error of errorMessages.password">
-                    <ng-container
-                      *ngIf="password.hasError(error.type) && ( password.touched || password.dirty)"
-                    >
-                      <small class="error-message"
-                        >{{error.message | customTranslate | async}}</small
-                      >
-                    </ng-container>
-                  </div>
+
                 </ion-list>
               </form>
       </ion-col>
@@ -69,7 +72,7 @@
   <button mat-button id="btn_login">Login</button>
   <ion-grid>
     <ion-row>
-      <ion-col>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
         <!-- Texts -->
         <div class="texts ion-text-center">
           <p style="margin: 0">

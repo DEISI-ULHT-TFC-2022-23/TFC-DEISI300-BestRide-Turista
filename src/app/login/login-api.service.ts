@@ -20,8 +20,8 @@ export class LoginApiService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    public alertController: AlertController,
-    private nativeStorage: NativeStorage
+    public alertCtrl: AlertController,
+    private nativeStorage: NativeStorage,
   ) {}
 
   public login_user(email: String, password: String, login_automatic: Boolean) {
@@ -60,7 +60,17 @@ export class LoginApiService {
         this.router.navigate(['/home_tab']);
       },
       (error) => {
-        this.showAlert('Invalid Credentials', error['error'], 'Try Again');
+        this.alertCtrl.create({
+          header: "Error",
+          message: "Invalid Credentials",
+          buttons: [
+            {
+              text: 'Try Again'
+            }
+          ]
+        }).then((alertEl) => {
+          alertEl.present();
+        });
       }
     );
   }
@@ -91,22 +101,12 @@ export class LoginApiService {
           console.log(response['access_token']);
           localStorage.setItem('token', response['access_token']);
           localStorage.setItem('isSocialLogin', 'true');
-          this.router.navigate(['/home_tab']);
+          this.router.navigateByUrl('tabs/home_tab');
         },
         (err) => {
           console.log('Erro');
         }
       );
-  }
-
-  async showAlert(header: string, message: string, button_text: string) {
-    const alert = await this.alertController.create({
-      header: header,
-      message: message,
-      buttons: [button_text],
-    });
-
-    await alert.present();
   }
 
   public isAuthenticated(){

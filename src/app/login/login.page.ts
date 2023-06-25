@@ -84,21 +84,9 @@ export class LoginPage implements OnInit {
 
 
 
-  public login(): void {
+  public login() {
     if (!this.registrationForm.valid) {
-      console.log("Entrou")
-      this.alertCtrl.create({
-        header: "Error",
-        message: "Invalid Credentials",
-        buttons: [
-          {
-            text: 'Try Again'
-          }
-        ]
-      }).then((alertEl) => {
-        alertEl.present();
-      });
-      return;
+      return false;
     } else {
       let email = this.registrationForm.get('email').value;
       let password = this.registrationForm.get('password').value;

@@ -48,7 +48,7 @@ export class MenuPage implements OnInit {
     private trans: CustomTranslateService,
     public modalController: ModalController
   ) {
-    appComp.hide_tab = false;
+
     map_service.ngOnInit();
   }
 
@@ -56,6 +56,7 @@ export class MenuPage implements OnInit {
 
   ngOnInit() {
     //this.presentModalMapDefinitions();
+    this.appComp.hide_tab = false;
     this.placesInit();
     console.log(this.searchedItem);
   }

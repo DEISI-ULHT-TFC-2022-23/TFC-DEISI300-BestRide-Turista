@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { CriaContaApiService } from './create-account-api.service';
 import { AppComponent } from '../app.component';
@@ -13,6 +13,7 @@ import { CountryCode } from './countryCode';
 export class CriaContaPage implements OnInit {
   public hide = true;
   public hide2 = true;
+  public hasPasswordErrors: boolean = false
   public passwordIconToggle: String = 'eye';
   public passwordIconToggle2: String = 'eye';
   public ionicForm: FormGroup;
@@ -20,25 +21,6 @@ export class CriaContaPage implements OnInit {
   countryCode: Array<CountryCode>;
 
   isSubmitted = false;
-
-  public phoneIndicative: any = [
-    {
-      country: 'Portugal',
-      indicative: '+351',
-    },
-    {
-      country: 'France',
-      indicative: '+33',
-    },
-    {
-      country: 'Spain',
-      indicative: '+34',
-    },
-    {
-      country: 'United Kingdom',
-      indicative: '+44',
-    },
-  ];
 
   public gender: any = [
     {
@@ -52,15 +34,6 @@ export class CriaContaPage implements OnInit {
     },
   ];
 
-  public city: any = [
-    {
-      city: 'Lisbon',
-    },
-    {
-      city: 'Sintra',
-    },
-  ];
-
   constructor(
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
@@ -71,6 +44,8 @@ export class CriaContaPage implements OnInit {
   }
 
   ngOnInit() {
+
+
     this.ionicForm = this.formBuilder.group(
       {
         name: ['', Validators.required],
@@ -91,12 +66,13 @@ export class CriaContaPage implements OnInit {
         ],
         pass: [
           '',
-          Validators.compose([
+          [
             Validators.required,
-            Validators.pattern(
-              '(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$'
-            ),
-          ]),
+            this.minimalCharacters(),
+            this.uppercaseValidator(),
+            this.digitValidator(),
+            this.specialCharacterValidator()
+          ],
         ],
         passRepeat: [
           '',
@@ -133,7 +109,6 @@ export class CriaContaPage implements OnInit {
 
   public submit() {
     this.isSubmitted = true;
-
     if (!this.ionicForm.valid || !this.ionicForm.get('check').value) {
       return false;
     } else {
@@ -156,7 +131,52 @@ export class CriaContaPage implements OnInit {
     }
   }
 
-  get errorControl() {
-    return this.ionicForm.controls;
+  // Validar letras maiúsculas
+  private uppercaseValidator(): ValidationErrors | null {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value: string = control.value;
+      if (/[A-Z]/.test(value)) {
+        return null;
+      }
+      return { uppercase: true };
+    };
+  }
+
+  // Validar digitos
+  private digitValidator(): ValidationErrors | null {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value: string = control.value;
+      if (/[0-9]/.test(value)) {
+        return null;
+      }
+      return { digit: true };
+    };
+  }
+
+  //Validar caracteres especiais
+  private specialCharacterValidator(): ValidationErrors | null {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value: string = control.value;
+      if (/[@#$%^&+!_.,=]/.test(value)) {
+        return null;
+      }
+      return { specialCharacter: true };
+    };
+  }
+
+  //Validar caracteres minimos
+  private minimalCharacters(): ValidationErrors | null {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value: string = control.value;
+      if (value && value.length < 8) {
+        return { minimalCharacters: true };
+      }
+      return null;
+    };
+  }
+
+  checkPasswordErrors(): void {
+    const passwordControl = this.ionicForm.get('pass');
+    this.hasPasswordErrors = passwordControl.invalid && passwordControl.touched;
   }
 }

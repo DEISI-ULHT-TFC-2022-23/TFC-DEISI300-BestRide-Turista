@@ -61,19 +61,7 @@ ion-alert {
   --spinner-color: white;
 }
 
-ion-header {
-  ion-toolbar {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    ion-img {
-      display: inline-block;
-      justify-content: center;
-      align-items: center;
-      width: 150px;
-    }
-  }
-}
+
 
 #content-menu {
   display: flex;
@@ -83,6 +71,13 @@ ion-header {
     align-self: center;
     width: 1%;
   }
+}
+.indicator_phone {
+  width: auto;
+}
+
+.field_phone {
+  width: auto;
 }
 
 svg {

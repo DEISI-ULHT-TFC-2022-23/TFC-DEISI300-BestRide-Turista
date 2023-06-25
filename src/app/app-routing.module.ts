@@ -102,6 +102,11 @@ const routes: Routes = [
         (m) => m.CommentsListPageModule
       ),
   },
+    {
+    path: 'teste',
+    loadChildren: () => import('./teste/teste.module').then( m => m.TestePageModule)
+  },
+
 
 ];
 
