@@ -13,7 +13,7 @@ export class CanActivateGuard implements CanActivate{
     if (this.loginApi.isAuthenticated()){
       return true;
     }else{
-      this.router.navigate(['/login']);
+      this.router.navigateByUrl('/login');
     }
   }
 }

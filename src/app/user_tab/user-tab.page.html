@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="assets/BestRideLogo.png"></ion-img>
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
+    <ion-title>{{'edit account' | customTranslate | async |uppercase}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +19,6 @@
       <ion-grid>
         <ion-card>
           <form class="form" [formGroup]="ionicForm">
-            <h1>{{'User Definitions' | customTranslate | async |uppercase}}</h1>
             <mat-form-field appearance="outline">
               <mat-label>{{ 'Name' | customTranslate | async}}</mat-label>
               <input matInput formControlName="name" type="text" />
@@ -79,7 +78,7 @@
                     <mat-icon>delete</mat-icon>
                   </button>
 
-                  <button mat-fab id="btn_logout" [routerLink]="['/login']">
+                  <button mat-fab id="btn_logout" routerLink="/login">
                     <mat-icon>logout</mat-icon>
                   </button>
                 </div>

@@ -16,9 +16,8 @@ import { User } from './user';
   providedIn: 'root',
 })
 export class MapServiceService {
-  private url = '/itineary/showRoadMap';
+  private url = '/itineary/showRoadMap/';
   private urlGetPoints = '/itineary/showItineary/';
-  private urlDistance = '/itineary/distance/';
   private urlVehicles = '/itineray/showRoadVehicles/';
   private urlGetRoadCity = '/showRoadMapsCity/';
   user: User;
@@ -48,7 +47,7 @@ export class MapServiceService {
     this.roads = this.http.post(environment.apiUrl + this.url, {
       lat: 38.72786267006623,
       lng: -9.12640841035285,
-      kmMAX: 20,
+      distanciaMax: 20000,
     });
     return this.roads;
   }

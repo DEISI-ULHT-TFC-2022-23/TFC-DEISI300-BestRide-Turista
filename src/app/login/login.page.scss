@@ -10,7 +10,6 @@ h1 {
 }
 
 ion-img{
-  height: 250;
   width: 150px;
 }
 
@@ -54,4 +53,8 @@ mat-form-field.mat-form-field {
 
 .header-md::after {
   display: none;
+}
+
+ion-checkbox{
+  margin: 0,0,0,0;
 }

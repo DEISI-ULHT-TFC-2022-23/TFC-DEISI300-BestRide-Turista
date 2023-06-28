@@ -44,8 +44,6 @@ export class CriaContaPage implements OnInit {
   }
 
   ngOnInit() {
-
-
     this.ionicForm = this.formBuilder.group(
       {
         name: ['', Validators.required],

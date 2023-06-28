@@ -13,20 +13,21 @@
       <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
           <form class="form" [formGroup]="ionicForm" (ngSubmit)="submit()">
               <mat-form-field appearance="outline">
-              <mat-label>{{'Name' | customTranslate | async}}</mat-label>
-              <input
-                matInput
-                formControlName="name"
-                autocomplete="off"
-                placeholder="{{'Write your name' | customTranslate | async}}"
-              />
-              <mat-error
-                class="error-message"
-                *ngIf="isSubmitted && this.ionicForm.get('name').hasError('required')"
-              >
-                {{'Name is required' | customTranslate | async}}
-              </mat-error>
-            </mat-form-field>
+                <mat-label>{{'Name' | customTranslate | async}}</mat-label>
+                <input
+                  matInput
+                  formControlName="name"
+                  autocomplete="off"
+                  placeholder="{{'Write your name' | customTranslate | async}}"
+                />
+
+                <!-- <mat-error
+                  class="error-message"
+                  *ngIf="isSubmitted && this.ionicForm.get('name').hasError('required')"
+                >
+                  {{'Name is required' | customTranslate | async}}
+                </mat-error> -->
+              </mat-form-field>
             <!-- FASE DE TESTES
             <mat-form-field appearance="outline">
               <mat-label>Choose a date</mat-label>
@@ -47,11 +48,11 @@
               >
               </ion-datetime>
               <mat-error
-                class="error-message"
-                *ngIf="isSubmitted &&this.ionicForm.get('dob').hasError('required')"
-              >
-                {{'Date Of Birth is required' | customTranslate | async}}
-              </mat-error>
+              class="error-message"
+              *ngIf="isSubmitted &&this.ionicForm.get('dob').hasError('required')"
+            >
+              {{'Date Of Birth is required' | customTranslate | async}}
+            </mat-error>
             </ion-item>
 
             <br />
@@ -83,6 +84,7 @@
                   autocomplete="off"
                   placeholder="{{'123 456 789' | customTranslate | async}}"
                 />
+
                 <mat-error
                   class="error-message"
                   *ngIf="isSubmitted && this.ionicForm.get('phone').hasError('required')"
@@ -109,6 +111,7 @@
                 autocomplete="off"
                 placeholder="1234-567"
               />
+
               <mat-error
                 class="error-message"
                 *ngIf="isSubmitted && this.ionicForm.get('postal').hasError('required')"
@@ -128,6 +131,7 @@
                   {{gdr.gender | customTranslate | async}}
                 </mat-option>
               </mat-select>
+
               <mat-error
                 class="error-message"
                 *ngIf="isSubmitted && this.ionicForm.get('gender').hasError('required')"
@@ -149,6 +153,7 @@
                 placeholder="{{'Rua Augusta 14' | customTranslate | async}}"
               />
 
+
               <mat-error
                 class="error-message"
                 *ngIf="isSubmitted && this.ionicForm.get('address').hasError('required')"
@@ -167,6 +172,7 @@
                 placeholder="{{'Lisbon' | customTranslate | async}}"
               />
 
+
               <mat-error
                 class="error-message"
                 *ngIf="isSubmitted && this.ionicForm.get('city').hasError('required')"
@@ -184,6 +190,7 @@
                 autocomplete="off"
                 placeholder="{{'Write your email' | customTranslate | async}}"
               />
+
 
               <mat-error
                 class="error-message"
@@ -209,6 +216,7 @@
                 [type]="hide ? 'password' : 'text'"
                 (blur)="checkPasswordErrors()"
               />
+
               <div
                 mat-icon-button
                 matSuffix
@@ -251,6 +259,7 @@
                 autocomplete="off"
                 [type]="hide2 ? 'password' : 'text'"
               />
+
               <div
                 mat-icon-button
                 matSuffix
@@ -273,13 +282,7 @@
 
             <ion-row>
               <ion-col>
-                <button
-                  id="btn_terms_conditions"
-                  mat-flat-button
-                  type="submit"
-                >
-                  {{'Terms and Conditions' | customTranslate | async}}
-                </button>
+                <a href="">{{'Read Terms and Conditions'}}</a>
               </ion-col>
             </ion-row>
 

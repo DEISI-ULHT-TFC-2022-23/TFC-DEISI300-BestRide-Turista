@@ -9,6 +9,7 @@ declare var google: any;
 
 import * as Leaflet from 'leaflet';
 import { antPath } from 'leaflet-ant-path';
+import { CustomTranslateService } from 'src/app/shared/services/custom-translate.service';
 
 @Component({
   selector: 'app-trip-details',
@@ -29,69 +30,99 @@ export class TripDetailsPage implements OnInit {
     private modalCtr: ModalController,
     private map_service: MapServiceService,
     private http: HttpClient,
+    private translate: CustomTranslateService,
     private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {}
 
   ionViewDidEnter() {
+    console.log(this.circuito.coordinates[this.circuito.coordinates.length - 1]);
     this.map = new Leaflet.Map('mapId').setView(
-      [this.circuito.lat, this.circuito.lng],
-      16
+      [this.circuito.coordinates[0][1], this.circuito.coordinates[0][0]],
+      13
     );
 
-    const leaf_icon = Leaflet.icon({
-      iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    Leaflet.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+
+    const leaf_icon1 = Leaflet.icon({
+      iconUrl: '../../assets/icon/marker.svg',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
     });
 
-    Leaflet.marker([this.circuito.lat, this.circuito.lng], { icon: leaf_icon })
-      .addTo(this.map)
-      .openPopup();
+    const leaf_icon2 = Leaflet.icon({
+      iconUrl: '../../assets/icon/marker2.svg',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34]
+    });
 
-    Leaflet.tileLayer(
-      'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-      {
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        attribution: 'BestRide.com',
-      }
-    ).addTo(this.map);
 
-    this.loadingCtrl
-      .create({
-        duration: 2500,
-      })
-      .then((response) => {
-        response.present();
-        /* Background Processing */
-        fetch('./assets/data.json')
-          .then((res) => res.json())
-          .then((data) => {
-            this.propertyList = data.properties;
-            //this.leafletMap();
-          })
-          .catch((err) => console.error(err));
-        this.circuito = this.circuito;
-        this.map_service
-          .get_points_interest(/*this.circuito['id']*/ 1)
-          .subscribe((data) => {
-            for (let pos in data) {
-              this.interest.push(
-                new InterestPoints(
-                  data[pos]['interest_points'].description,
-                  data[pos]['interest_points'].location['coordinates'][0],
-                  data[pos]['interest_points'].location['coordinates'][1],
-                  data[pos]['interest_points'].image
-                )
-              );
-            }
-          });
-        response.onDidDismiss().then((response) => {
-          /* Data */
-        });
-      });
+    const startMarker = Leaflet.marker([this.circuito.coordinates[0][1], this.circuito.coordinates[0][0]], { icon: leaf_icon1 })
+      .addTo(this.map);
+
+
+    const endMarker = Leaflet.marker([this.circuito.coordinates[this.circuito.coordinates.length - 1][1], this.circuito.coordinates[this.circuito.coordinates.length - 1][0]], { icon: leaf_icon2 }).addTo(this.map);
+
+    const polyline = Leaflet.polyline(this.circuito.coordinates.map(coords => [coords[1], coords[0]])).addTo(this.map); // Inverta a ordem das coordenadas
+
+
+
+    // Leaflet.marker([this.circuito.lat, this.circuito.lng], { icon: leaf_icon })
+    //   .addTo(this.map)
+    //   .openPopup();
+
+
+
+    // Leaflet.tileLayer(
+    //   'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+    //   {
+    //     maxZoom: 18,
+    //     id: 'mapbox/streets-v11',
+    //     tileSize: 512,
+    //     zoomOffset: -1,
+    //     attribution: 'BestRide.com',
+    //   }
+    // ).addTo(this.map);
+
+    // this.loadingCtrl
+    //   .create({
+    //     duration: 2500,
+    //   })
+    //   .then((response) => {
+    //     response.present();
+    //     /* Background Processing */
+    //     fetch('./assets/data.json')
+    //       .then((res) => res.json())
+    //       .then((data) => {
+    //         this.propertyList = data.properties;
+    //         //this.leafletMap();
+    //       })
+    //       .catch((err) => console.error(err));
+    //     this.circuito = this.circuito;
+    //     this.map_service
+    //       .get_points_interest(/*this.circuito['id']*/ 1)
+    //       .subscribe((data) => {
+    //         for (let pos in data) {
+    //           this.interest.push(
+    //             new InterestPoints(
+    //               data[pos]['interest_points'].description,
+    //               data[pos]['interest_points'].location['coordinates'][0],
+    //               data[pos]['interest_points'].location['coordinates'][1],
+    //               data[pos]['interest_points'].image
+    //             )
+    //           );
+    //         }
+    //       });
+    //     response.onDidDismiss().then((response) => {
+    //       /* Data */
+    //     });
+    //   });
   }
 
   private leafletMap() {

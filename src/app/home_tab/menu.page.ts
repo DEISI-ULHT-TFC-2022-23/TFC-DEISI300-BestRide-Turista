@@ -58,7 +58,6 @@ export class MenuPage implements OnInit {
     //this.presentModalMapDefinitions();
     this.appComp.hide_tab = false;
     this.placesInit();
-    console.log(this.searchedItem);
   }
 
   ngAfterViewInit() {}
@@ -75,8 +74,7 @@ export class MenuPage implements OnInit {
             data[pos].price,
             data[pos].description,
             data[pos].image,
-            data[pos].location['coordinates'][0],
-            data[pos].location['coordinates'][1]
+            data[pos].route.coordinates
           )
         );
       }
@@ -105,8 +103,7 @@ export class MenuPage implements OnInit {
                   data[pos].price,
                   data[pos].description,
                   data[pos].image,
-                  data[pos].location['coordinates'][0],
-                  data[pos].location['coordinates'][1]
+                  data[pos].route.coordinates
                 )
               );
             }
@@ -122,8 +119,7 @@ export class MenuPage implements OnInit {
                   data[pos].price,
                   data[pos].description,
                   data[pos].image,
-                  data[pos].location['coordinates'][0],
-                  data[pos].location['coordinates'][1]
+                  data[pos].route.coordinates
                 )
               );
             }
@@ -131,6 +127,7 @@ export class MenuPage implements OnInit {
         }
         this.contentLoad = true;
       }, 3000);
+      console.log(this.searchedItem);
       this.searchedItem = this.trips;
     });
 
@@ -151,8 +148,7 @@ export class MenuPage implements OnInit {
                 data[pos].price,
                 data[pos].description,
                 data[pos].image,
-                data[pos].location['coordinates'][0],
-                data[pos].location['coordinates'][1]
+                data[pos].route.coordinates
               )
             );
           }
@@ -168,8 +164,7 @@ export class MenuPage implements OnInit {
                 data[pos].price,
                 data[pos].description,
                 data[pos].image,
-                data[pos].location['coordinates'][0],
-                data[pos].location['coordinates'][1]
+                data[pos].route.coordinates
               )
             );
           }
@@ -244,8 +239,7 @@ export class MenuPage implements OnInit {
                 data[pos].price,
                 data[pos].description,
                 data[pos].image,
-                data[pos].location['coordinates'][0],
-                data[pos].location['coordinates'][1]
+                data[pos].route.coordinates
               )
             );
           }
@@ -263,11 +257,12 @@ export class MenuPage implements OnInit {
                   data[pos].price,
                   data[pos].description,
                   data[pos].image,
-                  data[pos].location['coordinates'][0],
-                  data[pos].location['coordinates'][1]
+                  data[pos].route.coordinates
                 )
+
               );
             }
+            console.log(this.trips)
           });
       }
     }, 2000);

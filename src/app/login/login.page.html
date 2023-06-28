@@ -15,14 +15,15 @@
         <form
                 id="login_form"
                 class="form"
-                [formGroup]="registrationForm"
+                [formGroup]="profileForm"
                 (ngSubmit)="login()"
               >
-                <ion-list>
+                <ion-list class="ion-no-padding">
                   <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
+                    <mat-label>{{"Email" | customTranslate | async}}</mat-label>
                     <input matInput formControlName="email" type="email" />
-                    <mat-error *ngFor="let error of errorMessages.email">
+                    <br>
+                    <mat-error *ngFor="let error of errorMessages.email" class="ion-text-start">
                       <ng-container
                         *ngIf="email.hasError(error.type) && ( email.touched || email.dirty)"
                       >
@@ -33,6 +34,7 @@
                     </mat-error>
                   </mat-form-field>
 
+
                   <mat-form-field appearance="outline">
                     <mat-label>{{'Password' | customTranslate | async}}</mat-label>
                     <input
@@ -40,6 +42,7 @@
                       formControlName="password"
                       [type]="hide ? 'password' : 'text'"
                     />
+                    <br>
                     <div
                       mat-icon-button
                       matSuffix
@@ -63,6 +66,22 @@
                       </div>
                     </mat-error>
                   </mat-form-field>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size="6" class="ion-text-start">
+                        <mat-checkbox formControlName="remember"
+                          >{{"Remember me" | customTranslate | async}}
+                        </mat-checkbox>
+                      </ion-col>
+                      <ion-col size="6" class="ion-text-end">
+                        <p>
+                          <u (click)="recover_account()"
+                            >{{'Forgot your password?' | customTranslate | async}}</u
+                          >
+                        </p>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
 
                 </ion-list>
               </form>
@@ -81,11 +100,7 @@
               >{{'Sign up' | customTranslate | async}}</u
             >
           </p>
-          <p>
-            <u (click)="recover_account()"
-              >{{'Forgot your password?' | customTranslate | async}}</u
-            >
-          </p>
+
         </div>
       </ion-col>
     </ion-row>

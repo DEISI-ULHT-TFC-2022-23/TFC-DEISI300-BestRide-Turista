@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController, isPlatform, AlertController } from '@ionic/angular';
 import { Plugins, registerWebPlugin } from '@capacitor/core';
@@ -35,12 +35,9 @@ export class LoginPage implements OnInit {
   //google
   private userInfo = null;
   // Form Builder -> parametros
-  private profileForm = this.formBuilder.group({
-    email: '',
-    password: '',
-  });
 
-  public registrationForm = this.formBuilder.group({
+
+  public profileForm = this.formBuilder.group({
     email: [
       '',
       Validators.compose([
@@ -55,10 +52,9 @@ export class LoginPage implements OnInit {
       '',
       Validators.compose([Validators.required, Validators.minLength(8)]),
     ],
+    remember: new FormControl(false)
   });
 
-  private login_alert_text = {};
-  public checked: Boolean = false;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -85,30 +81,27 @@ export class LoginPage implements OnInit {
 
 
   public login() {
-    if (!this.registrationForm.valid) {
+    if (!this.profileForm.valid) {
       return false;
     } else {
-      let email = this.registrationForm.get('email').value;
-      let password = this.registrationForm.get('password').value;
-      this.loginApi.login_user(email, password, this.checked);
+      let email = this.profileForm.get('email').value;
+      let password = this.profileForm.get('password').value;
+      this.loginApi.login_user(email, password, this.profileForm.get('remember').value);
     }
   }
 
-  addValue(e): void {
-    this.checked = e.currentTarget.checked;
-  }
 
   get email() {
-    return this.registrationForm.get('email');
+    return this.profileForm.get('email');
   }
   get password() {
-    return this.registrationForm.get('password');
+    return this.profileForm.get('password');
   }
 
 
 
   public createAccount(): void {
-    this.router.navigate(['/create-account']);
+    this.router.navigateByUrl('/create-account');
   }
 
   public recover_account(): void {

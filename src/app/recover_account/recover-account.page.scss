@@ -1,56 +1,33 @@
 * {
   color: black;
-  font-weight: 700;
-}
-
-.body {
-  background-color: #ffba00;
-  height: 100%;
-  width: 100%;
-}
-
-.content {
-  width: 100%;
-  position: absolute;
-  top: 5%;
-  justify-content: center;
-  text-align: center;
-  font-size: larger;
-}
-ion-toolbar {
-  --background: white;
-}
-
-ion-item {
-  --bacground: white;
-}
-
-ion-card {
-  font-size: 25px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-  padding: 24px;
-
-  h1 {
-    color: black;
-    font-size: larger;
-    font-weight: 800;
-  }
 }
 
 mat-form-field.mat-form-field {
   font-size: 16px;
   width: 90%;
   color: black;
-  font-weight: 800;
+  margin-top: 10px;
 }
 
 #btn_recover {
   background-color: #ff3f00;
+  margin-top: 10px;
   width: 90%;
   height: 50%;
   color: #ffffff;
-  font-weight: 600;
   font-size: 15px;
   border-radius: 8px;
+  margin-bottom: 20px;
 }
+
+ion-icon{
+  width: 100px;
+  height: 100px;
+  color: gray;
+}
+
+ion-grid{
+  margin-top: 30px;
+}
+
+

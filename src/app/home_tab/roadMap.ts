@@ -5,8 +5,7 @@ export class RoadMap {
   price: number;
   description: string;
   image: string;
-  lat: number;
-  lng: number;
+  coordinates: number[][]
 
   constructor(
     id: number,
@@ -15,8 +14,7 @@ export class RoadMap {
     price: number,
     description: string,
     image: string,
-    lat: number,
-    lng: number
+    coordinates: number[][]
   ) {
     this.id = id;
     this.title = title;
@@ -24,8 +22,7 @@ export class RoadMap {
     this.price = price;
     this.description = description;
     this.image = image;
-    this.lat = lat;
-    this.lng = lng;
+    this.coordinates = coordinates
   }
 }
 
