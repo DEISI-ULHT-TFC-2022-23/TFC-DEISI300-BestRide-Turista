@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="assets/BestRideLogo.png"></ion-img>
+    <ion-title>{{'Comment This Trip!' | customTranslate | async}}</ion-title>
     <ion-buttons slot="end">
       <ion-button color="secondary" (click)="closeModal()">
         <ion-icon name="close" size="large"></ion-icon>
@@ -26,13 +26,6 @@
             <div id="form">
               <ion-card>
                 <form [formGroup]="registrationForm" (ngSubmit)="submit()">
-
-                  <ion-card-header>
-                    <ion-card-title>
-                      <ion-label>{{'Comment This Trip!' | customTranslate | async}}</ion-label>
-                    </ion-card-title>
-                  </ion-card-header>
-
                   <ion-row>
                     <ion-col>
                       <ion-range snaps color="danger" pin min="0" max="10" color="danger" formControlName="rating">

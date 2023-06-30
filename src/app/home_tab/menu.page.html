@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="assets/BestRideLogo.png"></ion-img>
+    <ion-title>{{ selectedCity + ' itineraries' | customTranslate | async}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -31,156 +31,62 @@
       <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
         <!-- Change City -->
         <mat-form-field appearance="outline">
-          <mat-label>{{'Choose a city' | customTranslate | async}}</mat-label>
-          <mat-select (selectionChange)="onCityChange($event)">
-            <mat-option value="Near Me"
-              >{{'Near me' | customTranslate | async}}</mat-option
-            >
-            <mat-option value="lisboa"
-              >{{'Lisboa' | customTranslate | async}}</mat-option
-            >
-            <mat-option value="leiria"
-              >{{'Leiria' | customTranslate | async}}</mat-option
-            >
+          <mat-label>{{ 'Choose a city' | customTranslate | async }}</mat-label>
+          <mat-select [(value)]="selectedCity" (selectionChange)="onCityChange($event)">
+            <mat-option value="Near Me">{{ 'Near me' | customTranslate | async }}</mat-option>
+            <mat-option value="lisboa">{{ 'Lisboa' | customTranslate | async }}</mat-option>
+            <mat-option value="porto">{{ 'Porto' | customTranslate | async }}</mat-option>
           </mat-select>
         </mat-form-field>
       </ion-col>
     </ion-row>
+  </ion-grid>
+  <ion-grid >
     <ion-row>
-      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
-        <h2 style="font-weight: bold; margin-bottom: 0px;">
-          {{ place + ' itineraries' | customTranslate | async}}
-        </h2>
+      <ion-col size-md="6" offset-md="3" class="ion-text-center" *ngIf="isLoading">
+        <ion-spinner></ion-spinner>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
-        <!--<ion-virtual-scroll [items]="searchedItem">
-          <ion-card
-            detail
-            *virtualItem="let road"
-          >
-          <ion-card-header>
-            <ion-card-title
-              >{{ road.title| customTranslate | async}}</ion-card-title
-            >
-            <ion-card-subtitle>
-              {{ "Duration: " + road.duration + "h"| customTranslate |async}}
-            </ion-card-subtitle>
-          </ion-card-header>
-
-            <ion-label>
-              <h1>adsasdsa</h1>
-            </ion-label>
+      <ion-col size-md="6" offset-md="3"class="ion-text-center" *ngIf="!isLoading && (!loadedTrips || loadedTrips.length <= 0)">
+        <p>There are no bookable places right now, please come back later</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3" class="ion-text-center" *ngIf="!isLoading && loadedTrips.length > 0">
+        <ion-item-sliding *ngFor="let road of loadedTrips">
+          <ion-card>
+            <ion-grid class="ion-no-padding">
+              <ion-row>
+                <ion-col>
+                  <ion-img [src]="road.image"></ion-img>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-align-items-center">
+                <ion-col class="ion-text-start margin-left">
+                  <h2>{{ road.title | customTranslate | async }}</h2>
+                </ion-col>
+                <ion-col class="ion-text-end margin-right">
+                  <p class="priceDuration">{{ 'Price:' | customTranslate | async }}€ {{ road.price }} {{ 'Duration:' | customTranslate | async }} {{ road.duration }}h</p>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-align-items-center" style="padding-top: 6px;">
+                <ion-col class="ion-text-start margin-left" size="8">
+                  <p class="description">{{ road.description | customTranslate | async }}</p>
+                </ion-col>
+                <ion-col class="margin-right">
+                  <a [routerLink]="'details/' + road.id">{{ 'See details' | customTranslate | async }}</a>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <button (click)="showRoteiro(road)">{{ 'Book tour' | customTranslate | async }}</button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-card>
-        </ion-virtual-scroll>-->
-
-        <ion-card style="text-align: justify">
-
-
-          <div scrollY="true" class="botoes">
-            <ion-list *ngFor="let road of searchedItem">
-              <ion-card-header>
-                <ion-card-title>
-                  {{ road.title| customTranslate | async}}
-                </ion-card-title
-                >
-                <ion-card-subtitle>
-                  {{ "Duration: " + road.duration + "h"| customTranslate |async}}
-                </ion-card-subtitle>
-              </ion-card-header>
-              <ion-card-content>
-                <p>{{ road.description| customTranslate | async}}</p>
-                <br />
-                <h3>
-                  {{ "Price: "| customTranslate |async}} {{ road.price |
-                  currency:'EUR'| customTranslate |async}}
-                </h3>
-                <div class="ion-text-center">
-                  <button
-                    mat-raised-button
-                    (click)="showRoteiro(road)"
-                    expand="block"
-                    id="btn_book"
-                  >
-                    {{'Book Tour' | customTranslate| async}}
-                  </button>
-                  <button
-                    mat-raised-button
-                    (click)="trip_map_details(road)"
-                    expand="block"
-                    id="btn_view"
-                  >
-                    {{'See Tour' | customTranslate | async}}
-                  </button>
-                  <button
-                    mat-raised-button
-                    (click)="comments(road)"
-                    expand="block"
-                    id="btn_comments"
-                  >
-                    {{'See Comments' | customTranslate | async}}
-                  </button>
-                </div>
-              </ion-card-content>
-            </ion-list>
-          </div>
-        </ion-card>
+        </ion-item-sliding>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!--
-    <div class="content">
-
-      <ion-card style="text-align: justify">
-
-
-        <div scrollY="true" class="botoes">
-          <ion-list *ngFor="let road of searchedItem">
-            <ion-card-header>
-              <ion-card-title
-                >{{ road.title| customTranslate | async}}</ion-card-title
-              >
-              <ion-card-subtitle>
-                {{ "Duration: " + road.duration + "h"| customTranslate |async}}
-              </ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <p>{{ road.description| customTranslate | async}}</p>
-              <br />
-              <h3>
-                {{ "Price: "| customTranslate |async}} {{ road.price |
-                currency:'EUR'| customTranslate |async}}
-              </h3>
-              <div class="ion-text-center">
-                <button
-                  mat-raised-button
-                  (click)="showRoteiro(road)"
-                  expand="block"
-                  id="btn_book"
-                >
-                  {{'Book Tour' | customTranslate| async}}
-                </button>
-                <button
-                  mat-raised-button
-                  (click)="trip_map_details(road)"
-                  expand="block"
-                  id="btn_view"
-                >
-                  {{'See Tour' | customTranslate | async}}
-                </button>
-                <button
-                  mat-raised-button
-                  (click)="comments(road)"
-                  expand="block"
-                  id="btn_comments"
-                >
-                  {{'See Comments' | customTranslate | async}}
-                </button>
-              </div>
-            </ion-card-content>
-          </ion-list>
-        </div>
-      </ion-card>
-    </div>-->
 </ion-content>

@@ -28,14 +28,6 @@ export class LoginPage implements OnInit {
   public ionicForm: FormGroup;
   public name: string;
 
-  //facebook
-  private user = null;
-  private token = null;
-
-  //google
-  private userInfo = null;
-  // Form Builder -> parametros
-
 
   public profileForm = this.formBuilder.group({
     email: [
@@ -63,10 +55,10 @@ export class LoginPage implements OnInit {
     private alertCtrl: AlertController,
     private loginApi: LoginApiService,
     private translate: CustomTranslateService,
-    private comp: AppComponent,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private bottombar: AppComponent,
   ) {
-    comp.hide_tab = true;
+    this.bottombar.hide_tab = true;
   }
 
   ngOnInit() {

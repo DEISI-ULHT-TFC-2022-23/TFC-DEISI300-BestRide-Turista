@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <img id="img" src="assets/BestRideLogo.png" />
+    <ion-title>{{'Payment' | customTranslate | async}}</ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="cancel()">
         <ion-icon
@@ -17,7 +17,6 @@
 <ion-content>
   <ion-card class="welcome-card">
     <ion-card-header>
-      <h1>Payment</h1>
       <ion-row>
         <h2>
           {{ tripName | uppercase }} <br />{{ paymentAmount | currency : 'EUR'}}

@@ -8,7 +8,6 @@ import {
   PositionError,
 } from '@ionic-native/geolocation/ngx';
 
-import { OptionsMapPage } from './options-map/options-map.page';
 import { BookTripModalPage } from './book-trip-modal/book-trip-modal.page';
 import { ModalController } from '@ionic/angular';
 import { AppComponent } from '../app.component';
@@ -19,6 +18,8 @@ import { User } from './user';
 import { TripDetailsPage } from './trip-details/trip-details.page';
 import { CommentTripPage } from '../comment-trip/comment-trip.page';
 import { CommentsListPage } from '../comments-list/comments-list.page';
+import { delay } from 'rxjs/operators';
+import { DetailsPage } from './details/details.page';
 
 declare var google: any;
 
@@ -31,18 +32,16 @@ export class MenuPage implements OnInit {
   @ViewChild('map', { static: false }) mapElement: ElementRef;
 
   public selected: RoadMap;
-  private distance: any;
-  private currentPos: Geoposition;
+  isLoading = false;
   user: User;
+  selectedCity = 'Lisboa';
   public contentLoad = false;
-  public trips: Array<RoadMap> = [];
-  public place: string;
+  public loadedTrips: Array<RoadMap> = [];
   public searchedItem: RoadMap[];
 
   constructor(
     private geolocation: Geolocation,
     private router: Router,
-    private model_controller: ModalController,
     private appComp: AppComponent,
     private map_service: MapServiceService,
     private trans: CustomTranslateService,
@@ -52,7 +51,9 @@ export class MenuPage implements OnInit {
     map_service.ngOnInit();
   }
 
-  ionViewWillEnter() {}
+  ionViewWillEnter() {
+    this.appComp.hide_tab = false;
+  }
 
   ngOnInit() {
     //this.presentModalMapDefinitions();
@@ -63,10 +64,10 @@ export class MenuPage implements OnInit {
   ngAfterViewInit() {}
 
   placesInit() {
-    this.place = "Near Me";
-    this.map_service.get_roads_near_me().subscribe((data) => {
+    this.isLoading = true;
+    this.map_service.getRoads(this.selectedCity).subscribe((data) => {
       for (let pos in data) {
-        this.trips.push(
+        this.loadedTrips.push(
           new RoadMap(
             data[pos].id,
             data[pos].title,
@@ -78,69 +79,17 @@ export class MenuPage implements OnInit {
           )
         );
       }
+      this.isLoading = false;
     });
-    this.searchedItem = this.trips;
-  }
-
-  async presentModalMapDefinitions() {
-    const modal = await this.modalController.create({
-      component: OptionsMapPage,
-      cssClass: 'options-map.page.scss',
-    });
-
-    modal.onDidDismiss().then((data) => {
-      // Using Skeleton Text
-      setTimeout(() => {
-        this.place = data['data'].local;
-        if (this.place == 'Near Me') {
-          this.map_service.get_roads_near_me().subscribe((data) => {
-            for (let pos in data) {
-              this.trips.push(
-                new RoadMap(
-                  data[pos].id,
-                  data[pos].title,
-                  data[pos].duration,
-                  data[pos].price,
-                  data[pos].description,
-                  data[pos].image,
-                  data[pos].route.coordinates
-                )
-              );
-            }
-          });
-        } else {
-          this.map_service.get_roads_by_city(this.place).subscribe((data) => {
-            for (let pos in data) {
-              this.trips.push(
-                new RoadMap(
-                  data[pos].id,
-                  data[pos].title,
-                  data[pos].duration,
-                  data[pos].price,
-                  data[pos].description,
-                  data[pos].image,
-                  data[pos].route.coordinates
-                )
-              );
-            }
-          });
-        }
-        this.contentLoad = true;
-      }, 3000);
-      console.log(this.searchedItem);
-      this.searchedItem = this.trips;
-    });
-
-    modal.present();
+    this.searchedItem = this.loadedTrips;
   }
 
   doRefresh(event) {
-    this.trips = [];
+    this.loadedTrips = [];
     setTimeout(() => {
-      if (this.place == 'Near Me') {
-        this.map_service.get_roads_near_me().subscribe((data) => {
+        this.map_service.getRoads(this.selectedCity).subscribe((data) => {
           for (let pos in data) {
-            this.trips.push(
+            this.loadedTrips.push(
               new RoadMap(
                 data[pos].id,
                 data[pos].title,
@@ -153,23 +102,6 @@ export class MenuPage implements OnInit {
             );
           }
         });
-      } else {
-        this.map_service.get_roads_by_city(this.place).subscribe((data) => {
-          for (let pos in data) {
-            this.trips.push(
-              new RoadMap(
-                data[pos].id,
-                data[pos].title,
-                data[pos].duration,
-                data[pos].price,
-                data[pos].description,
-                data[pos].image,
-                data[pos].route.coordinates
-              )
-            );
-          }
-        });
-      }
       event.target.complete();
     }, 2000);
   }
@@ -181,7 +113,7 @@ export class MenuPage implements OnInit {
 
   //  Open the page for the trip booking
   async presentModal(road: RoadMap) {
-    const modal = await this.model_controller.create({
+    const modal = await this.modalController.create({
       component: BookTripModalPage,
       componentProps: {
         circuito: road,
@@ -190,33 +122,12 @@ export class MenuPage implements OnInit {
     return await modal.present();
   }
 
-  //  Open the page for the trip booking
-  async trip_map_details(road: RoadMap) {
-    const modal = await this.model_controller.create({
-      component: TripDetailsPage,
-      componentProps: {
-        circuito: road,
-      },
-    });
-    return await modal.present();
-  }
 
-  public async comments(road: RoadMap) {
-    const modal = await this.model_controller.create({
-      component: CommentsListPage,
-      componentProps: {
-        road_map_id: road.id,
-        road_map_name: road.title,
-        road_map_image: road.image,
-      },
-    });
-    return await modal.present();
-  }
 
   public ionChange(event) {
     const val = event.target.value;
 
-    this.searchedItem = this.trips;
+    this.searchedItem = this.loadedTrips;
     if (val && val.trim() != '') {
       this.searchedItem = this.searchedItem.filter((item: any) => {
         return item.title.toLowerCase().indexOf(val.toLowerCase()) > -1;
@@ -226,12 +137,14 @@ export class MenuPage implements OnInit {
 
   public onCityChange(event) {
     console.log(event.source._value);
-    this.trips = [];
+    this.loadedTrips = [];
+    this.isLoading = true;
     setTimeout(() => {
-      if (event.source._value == 'Near Me') {
-        this.map_service.get_roads_near_me().subscribe((data) => {
+      this.map_service
+        .getRoads(this.selectedCity)
+        .subscribe((data) => {
           for (let pos in data) {
-            this.trips.push(
+            this.loadedTrips.push(
               new RoadMap(
                 data[pos].id,
                 data[pos].title,
@@ -241,31 +154,13 @@ export class MenuPage implements OnInit {
                 data[pos].image,
                 data[pos].route.coordinates
               )
+
             );
           }
+          this.isLoading = false;
+          console.log(this.loadedTrips)
         });
-      } else {
-        this.map_service
-          .get_roads_by_city(event.source._value)
-          .subscribe((data) => {
-            for (let pos in data) {
-              this.trips.push(
-                new RoadMap(
-                  data[pos].id,
-                  data[pos].title,
-                  data[pos].duration,
-                  data[pos].price,
-                  data[pos].description,
-                  data[pos].image,
-                  data[pos].route.coordinates
-                )
-
-              );
-            }
-            console.log(this.trips)
-          });
-      }
     }, 2000);
-    this.searchedItem = this.trips;
+    this.searchedItem = this.loadedTrips;
   }
 }

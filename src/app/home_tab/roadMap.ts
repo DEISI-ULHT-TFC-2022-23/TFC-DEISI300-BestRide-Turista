@@ -14,7 +14,7 @@ export class RoadMap {
     price: number,
     description: string,
     image: string,
-    coordinates: number[][]
+    coordinates: number[][],
   ) {
     this.id = id;
     this.title = title;

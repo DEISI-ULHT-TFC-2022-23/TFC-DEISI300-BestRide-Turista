@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/home_tab"></ion-back-button>
+      <ion-title>{{ isLoading ? ('Loading...' | customTranslate | async) : tour.title }}</ion-title>
+      <ion-button slot="end" (click)="openMap(tour)">
+        <ion-icon
+          slot="icon-only"
+          name="map-sharp"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center" *ngIf="isLoading">
+    <ion-spinner></ion-spinner>
+  </div>
+  <ion-grid *ngIf="!isLoading" class="ion-no-padding">
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-img [src]="tour.image" class="image"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="teste ion-no-padding">
+        <h1>{{tour.title  | customTranslate | async}}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="teste ion-no-padding">
+        <p class="description">{{tour.description  | customTranslate | async}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col  size-sm="6" offset-sm="3" class="ion-text-start teste">
+        <p class="tamanho">{{'Price:' | customTranslate | async}} {{ tour.price }}€</p>
+      </ion-col>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-start">
+        <p class="tamanho">{{'Duration:' | customTranslate | async}} {{tour.duration}}h</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="teste">
+        <p class="tamanho">{{'Tourist Guide:' | customTranslate | async}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-img [src]="driver_profile_image"></ion-img>
+      </ion-avatar>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h2>{{ driver_name }}</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>{{ driver_languages | customTranslate | async }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-grid>
+  <button (click)="showRoteiro()">{{ 'Book tour' | customTranslate | async }}</button>
+</ion-content>

@@ -2,13 +2,13 @@
     font-weight: 950;
     color: black;
   }
-  
+
 .body {
     background-color: #00adff;
     height: 100%;
     width: 100%;
   }
-  
+
   .content {
     width: 100%;
     height: 100%;
@@ -18,3 +18,7 @@
     text-align: center;
     font-size: larger;
   }
+
+ion-card {
+  padding: 6px;
+}

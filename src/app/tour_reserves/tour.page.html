@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="assets/BestRideLogo.png"></ion-img>
+    <ion-title>{{'Your Reservations' | customTranslate | async}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,11 +18,6 @@
         <ion-row>
           <ion-col>
             <ion-card>
-
-              <ion-list-header>
-                <ion-label>{{'Your Reservations' | customTranslate | async}}</ion-label>
-              </ion-list-header>
-
               <div *ngIf="tour_array.length == 0 && !loadingContent">
                 <ion-card>
                   <ion-card-header>

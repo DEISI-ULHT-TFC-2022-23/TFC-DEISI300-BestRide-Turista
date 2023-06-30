@@ -35,8 +35,17 @@ const routes: Routes = [
   },
   {
     path: 'home_tab',
-    loadChildren: () =>
-      import('./home_tab/menu.module').then((m) => m.MenuPageModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+        import('./home_tab/menu.module').then((m) => m.MenuPageModule),
+      },
+      {
+        path: 'details/:tripId',
+        loadChildren: () => import('./home_tab/details/details.module').then( m => m.DetailsPageModule)
+      },
+    ]
   },
   {
     path: 'definitions_tab',
@@ -70,13 +79,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'options-map',
-    loadChildren: () =>
-      import('./home_tab/options-map/options-map.module').then(
-        (m) => m.OptionsMapPageModule
-      ),
-  },
-  {
     path: 'trip-details',
     loadChildren: () =>
       import('./home_tab/trip-details/trip-details.module').then(
@@ -102,6 +104,8 @@ const routes: Routes = [
         (m) => m.CommentsListPageModule
       ),
   },
+
+
 
 
 ];

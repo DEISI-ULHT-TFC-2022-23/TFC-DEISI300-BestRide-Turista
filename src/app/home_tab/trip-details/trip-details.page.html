@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home_tab"></ion-back-button>
+      <ion-button (click)="close()">
+        <ion-icon
+          slot="icon-only"
+          name="arrow-back-outline"
+        ></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>SignUp</ion-title>
   </ion-toolbar>
 </ion-header>
 

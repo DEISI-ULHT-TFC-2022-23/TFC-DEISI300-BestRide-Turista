@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="assets/BestRideLogo.png"></ion-img>
+    <ion-title>{{ road_map_name |customTranslate | async}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon
@@ -25,7 +25,6 @@
       <ion-card>
         <ion-card-content>
           <img [src]="road_map_image" />
-          <h1>{{ road_map_name |customTranslate | async}}</h1>
         </ion-card-content>
       </ion-card>
       <!-- Avg rating Trip -->

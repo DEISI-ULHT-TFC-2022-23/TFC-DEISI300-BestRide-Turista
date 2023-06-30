@@ -5,7 +5,7 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-img src="assets/BestRideLogo.png"></ion-img>
+    <ion-title>{{'Recover your Account' | customTranslate | async}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -20,12 +20,10 @@
     <div class="content">
       <ion-card>
         <form class="form" [formGroup]="registrationForm" (ngSubmit)="submit()">
-          <h1>{{'Recover your Account' | customTranslate | async}}</h1>
-
-          <h3>
+          <h1>
             {{'A code has been sent to the email. check the mailbox' |
             customTranslate | async}}
-          </h3>
+          </h1>
 
           <mat-form-field appearance="outline">
             <mat-label>{{'Code' | customTranslate | async}}</mat-label>

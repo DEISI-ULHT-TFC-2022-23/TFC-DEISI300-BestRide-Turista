@@ -11,6 +11,8 @@ import * as Leaflet from 'leaflet';
 import { antPath } from 'leaflet-ant-path';
 import { CustomTranslateService } from 'src/app/shared/services/custom-translate.service';
 
+
+
 @Component({
   selector: 'app-trip-details',
   templateUrl: './trip-details.page.html',
@@ -37,9 +39,9 @@ export class TripDetailsPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    console.log(this.circuito.coordinates[this.circuito.coordinates.length - 1]);
+    console.log(this.circuito);
     this.map = new Leaflet.Map('mapId').setView(
-      [this.circuito.coordinates[0][1], this.circuito.coordinates[0][0]],
+      [this.circuito[0][1], this.circuito[0][0]],
       13
     );
 
@@ -63,13 +65,14 @@ export class TripDetailsPage implements OnInit {
     });
 
 
-    const startMarker = Leaflet.marker([this.circuito.coordinates[0][1], this.circuito.coordinates[0][0]], { icon: leaf_icon1 })
+
+    const startMarker = Leaflet.marker([this.circuito[0][1], this.circuito[0][0]], { icon: leaf_icon1 })
       .addTo(this.map);
 
 
-    const endMarker = Leaflet.marker([this.circuito.coordinates[this.circuito.coordinates.length - 1][1], this.circuito.coordinates[this.circuito.coordinates.length - 1][0]], { icon: leaf_icon2 }).addTo(this.map);
+    const endMarker = Leaflet.marker([this.circuito[this.circuito.length - 1][1], this.circuito[this.circuito.length - 1][0]], { icon: leaf_icon2 }).addTo(this.map);
 
-    const polyline = Leaflet.polyline(this.circuito.coordinates.map(coords => [coords[1], coords[0]])).addTo(this.map); // Inverta a ordem das coordenadas
+    const polyline = Leaflet.polyline(this.circuito.map(coords => [coords[1], coords[0]])).addTo(this.map); // Inverta a ordem das coordenadas
 
 
 

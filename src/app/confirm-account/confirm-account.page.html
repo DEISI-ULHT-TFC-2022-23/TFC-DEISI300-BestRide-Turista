@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="assets/BestRideLogo.png"></ion-img>
+    <ion-title> {{'Confirm Your Account' | customTranslate | async}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,8 +15,7 @@
 
     <div class="content">
       <ion-card>
-        <h1> {{'Confirm Your Account' | customTranslate | async}}</h1>
-        <p> {{'A code was sent to your email.' | customTranslate | async}}</p>
+        <h1> {{'A code was sent to your email.' | customTranslate | async}}</h1>
         <form class="form" [formGroup]="registrationForm" (ngSubmit)="validateUser()">
           <ion-item>
             <ion-label position="stacked"> {{'Code' | customTranslate | async}}</ion-label>
